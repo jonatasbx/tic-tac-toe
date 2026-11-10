@@ -13,3 +13,10 @@ const Gameboard = (function () {
   }
   return {getBoard, placeMark}
 })();
+
+function createPlayer(name, mark){
+  this.name = name;
+  this.mark = mark;
+
+  return {name, mark}
+}
