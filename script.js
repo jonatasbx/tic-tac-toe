@@ -99,14 +99,18 @@ const displayController = (function () {
 
   const render = function(){
     boardDiv.textContent = "";
-    Gameboard.getBoard().forEach(cell => {
+    Gameboard.getBoard().forEach((cell, index) => {
       const cellDiv = document.createElement("div");
       cellDiv.classList.add("cell");
       cellDiv.textContent = cell;
+      cellDiv.addEventListener("click", () => {
+        gameController.playRound(index);
+        render()
+      })
       boardDiv.appendChild(cellDiv);
     });
   }
   render();
-  
+
   return {render};
 })()

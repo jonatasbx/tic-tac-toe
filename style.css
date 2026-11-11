@@ -14,3 +14,7 @@
     border-radius: 12px;
     background: #e8f5ee;
 }
+
+.cell {
+    cursor: pointer;
+}
