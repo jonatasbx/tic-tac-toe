@@ -41,13 +41,53 @@ const gameController = (function(){
     return activePlayer
   }
 
-  function playRound(index){
-    if(Gameboard.placeMark(index, activePlayer.mark)=== true){
-      switchPlayer()
-    }else{
-      console.log("A casa está ocupada");
-    }
+  const winningCombos = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],   // linhas
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],   // colunas
+    [0, 4, 8], [2, 4, 6]               // diagonais
+  ];
+
+  let gameOver = false;
+
+  function checkWinner(){
+    let board = Gameboard.getBoard()
+     return winningCombos.some(combo =>
+    combo.every(index => board[index] === activePlayer.mark)
+  );
+  };
+
+  function checkTie(){
+    let board = Gameboard.getBoard()
+    return board.every(cell=> cell !=="")
   }
+
+  function playRound(index){
+    if(gameOver){
+      console.log("O jogo acabou");
+      return
+    };
+
+    if(!Gameboard.placeMark(index, activePlayer.mark)){
+      console.log("A casa está ocupada");
+      return
+    };
+
+    if (checkWinner()){
+      gameOver = true;
+      console.log(`O vencedor é
+        ${activePlayer.name}`)
+      return
+    };
+
+    if(checkTie()){
+      gameOver = true;
+      console.log("Empatoooooou!")
+      return
+    };
+
+    switchPlayer()
+  }
+
   return {playRound, getActivePlayer}
 
 })();
