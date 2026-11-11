@@ -82,15 +82,15 @@ const gameController = (function(){
     };
 
     if (checkWinner()){
+      gameOver = true;
       result = `O vencedor é o
         ${activePlayer.name}`;
-
       return
     };
 
     if(checkTie()){
-      result = "Empatoooooou!"
       gameOver = true;
+      result = "Empatoooooou!"
       return
     };
 
