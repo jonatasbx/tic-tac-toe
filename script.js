@@ -25,6 +25,15 @@ function createPlayer(name, mark){
 // Cria o Game Controller
 
 const gameController = (function(){
+  let result = "";
+
+  function getStatus(){
+    if(!result){
+      return `Vez de ${activePlayer.name}`
+    }else{
+      return result
+    }
+  }
   const players = [createPlayer("Jogador 1", "X"), createPlayer("Jogador 2", "O")];
 
   let activePlayer = players[0];
@@ -73,22 +82,22 @@ const gameController = (function(){
     };
 
     if (checkWinner()){
-      gameOver = true;
-      console.log(`O vencedor é
-        ${activePlayer.name}`)
+      result = `O vencedor é o
+        ${activePlayer.name}`;
+
       return
     };
 
     if(checkTie()){
+      result = "Empatoooooou!"
       gameOver = true;
-      console.log("Empatoooooou!")
       return
     };
 
     switchPlayer()
   }
 
-  return {playRound, getActivePlayer}
+  return {playRound, getActivePlayer, getStatus}
 
 })();
 
@@ -97,7 +106,10 @@ const gameController = (function(){
 const displayController = (function () {
   const boardDiv = document.querySelector("#board");
 
+  const para = document.querySelector("#status")
+
   const render = function(){
+    para.textContent = gameController.getStatus();
     boardDiv.textContent = "";
     Gameboard.getBoard().forEach((cell, index) => {
       const cellDiv = document.createElement("div");
