@@ -91,3 +91,22 @@ const gameController = (function(){
   return {playRound, getActivePlayer}
 
 })();
+
+// Display Controller
+
+const displayController = (function () {
+  const boardDiv = document.querySelector("#board");
+
+  const render = function(){
+    boardDiv.textContent = "";
+    Gameboard.getBoard().forEach(cell => {
+      const cellDiv = document.createElement("div");
+      cellDiv.classList.add("cell");
+      cellDiv.textContent = cell;
+      boardDiv.appendChild(cellDiv);
+    });
+  }
+  render();
+  
+  return {render};
+})()
