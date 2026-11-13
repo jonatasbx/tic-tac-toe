@@ -13,7 +13,10 @@ const Gameboard = (function () {
         return false
     }
   }
-  return {getBoard, placeMark}
+
+  const reset = ()=> board.fill("");
+
+  return {getBoard, placeMark, reset}
 })();
 
 
@@ -83,8 +86,7 @@ const gameController = (function(){
 
     if (checkWinner()){
       gameOver = true;
-      result = `O vencedor é o
-        ${activePlayer.name}`;
+      result = `O vencedor é o ${activePlayer.name}`;
       return
     };
 
@@ -97,7 +99,14 @@ const gameController = (function(){
     switchPlayer()
   }
 
-  return {playRound, getActivePlayer, getStatus}
+  function resetGame(){
+    Gameboard.reset();
+    activePlayer = players[0];
+    gameOver = false;
+    result = "";
+  }
+
+  return {playRound, getActivePlayer, getStatus, resetGame}
 
 })();
 
@@ -106,7 +115,9 @@ const gameController = (function(){
 const displayController = (function () {
   const boardDiv = document.querySelector("#board");
 
-  const para = document.querySelector("#status")
+  const para = document.querySelector("#status");
+
+  const restartButton = document.querySelector("#restart");
 
   const render = function(){
     para.textContent = gameController.getStatus();
@@ -121,7 +132,12 @@ const displayController = (function () {
       })
       boardDiv.appendChild(cellDiv);
     });
-  }
+  };
+
+  restartButton.addEventListener("click", ()=>{
+    gameController.resetGame();
+    render()
+  })
   render();
 
   return {render};
