@@ -1,3 +1,44 @@
+/* Página */
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    font-family: system-ui, sans-serif;
+    background: #f4f6f8;
+    color: #2b3a55;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Campos de nome */
+#names {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#names input {
+    padding: 10px 14px;
+    border: 1px solid #cfd8e3;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* Frase de status */
+#status {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Tabuleiro */
 #board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -11,10 +52,28 @@
     align-items: center;
     justify-content: center;
     font-size: 2.5rem;
+    font-weight: bold;
     border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+.cell:hover {
     background: #e8f5ee;
 }
 
-.cell {
+/* Botão */
+#restart {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #3a9d6a;
+    color: #ffffff;
+    font-size: 1rem;
     cursor: pointer;
+}
+
+#restart:hover {
+    background: #2f8459;
 }
