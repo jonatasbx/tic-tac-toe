@@ -86,7 +86,7 @@ const gameController = (function(){
 
     if (checkWinner()){
       gameOver = true;
-      result = `O vencedor é o ${activePlayer.name}`;
+      result = `${activePlayer.name} venceu!`;
       return
     };
 
@@ -99,7 +99,10 @@ const gameController = (function(){
     switchPlayer()
   }
 
-  function resetGame(){
+  function resetGame(name1, name2){
+    players[0] = createPlayer(name1 || "Jogador 1", "X");
+    players[1] = createPlayer(name2 || "Jogador 2", "O");
+
     Gameboard.reset();
     activePlayer = players[0];
     gameOver = false;
@@ -113,6 +116,9 @@ const gameController = (function(){
 // Display Controller
 
 const displayController = (function () {
+  const input1 = document.querySelector("#player1");
+  const input2 = document.querySelector("#player2");
+
   const boardDiv = document.querySelector("#board");
 
   const para = document.querySelector("#status");
@@ -135,7 +141,7 @@ const displayController = (function () {
   };
 
   restartButton.addEventListener("click", ()=>{
-    gameController.resetGame();
+    gameController.resetGame(input1.value.trim(), input2.value.trim());
     render()
   })
   render();
